@@ -30,7 +30,8 @@ public class Operacao {
 	}
 
     public void saque(){
-        
+        Operacao operacao = new Operacao(data, valor, tipo);
+			alOperacoes.add(operacao);
     }
     public void deposito(){
 

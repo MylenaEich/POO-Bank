@@ -17,13 +17,4 @@ public class Banco {
         alContas.add(conta);
     }
 
-    public void addContaPix(int numConta, String nome, String CPF){
-        Conta conta = new Conta(numConta, nome, CPF);
-		alContas.add(conta);
-    }
-    public void addConta(int numConta, String nome){
-        Conta conta = new Conta(numConta, nome);
-		alContas.add(conta);
-    }
-
 }
