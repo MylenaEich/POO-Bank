@@ -53,7 +53,7 @@ public abstract class Conta {
     public void setCPF(String CPF){
         this.CPF = CPF;
     }
-    public String CPF(){
+    public String getCPF(){
         return CPF;
     }
     public void setSaldo(float saldo){
@@ -61,5 +61,11 @@ public abstract class Conta {
     }
     public float getsaldo(){
         return saldo;
+    }
+    public void deposito(float valor){
+        this.saldo = this.saldo + valor;
+    }
+    public void saque(float valor){
+        this.saldo = this.saldo - valor;
     }
 }

@@ -22,11 +22,11 @@ public class Poupanca extends Conta implements Remunerada {
     public void addConta(Poupanca poupanca){
         alContas.add(poupanca);
     }
-    public void addCPPix( String nome, String CPF){
-        int numConta = alContas.size() + 1;
-        Poupanca poupanca = new Poupanca(numConta, nome, CPF);
-		addConta(poupanca);
-    }
+    // public void addCPPix( String nome, String CPF){
+    //     int numConta = alContas.size() + 1;
+    //     Poupanca poupanca = new Poupanca(numConta, nome, CPF);
+	// 	addConta(poupanca);
+    // }
     public void addCP(String nome){
         int numConta = alContas.size() + 1;
         Poupanca poupanca = new Poupanca(numConta, nome);
