@@ -1,6 +1,8 @@
 import Banco.*;
 import Interfaces.*;
 
+import java.lang.management.MemoryPoolMXBean;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,13 +22,28 @@ public class Principal {
 
         int opcao;
 
+		Corrente cc = new Corrente(1, "Mylena");
+		Corrente cc1 = new Corrente(2, 40, "Joana", "000.000.000-00");
+		Poupanca cp = new Poupanca(4, "Cleidson");
+		Poupanca cp1 = new Poupanca(4, 100, "Josefina", "111.111.111-11");
+
+		//Operacao oper = new Operacao(LocalDate.now(), 20, 1, TipoOperacao.DEPOSITO);
+		Operacao oper1 = new Operacao(LocalDate.now(), 15, 2, TipoOperacao.SAQUE);
+
+		banco.addConta(cc);
+		banco.addConta(cc1);
+		banco.addConta(cp);
+		banco.addConta(cp1);
+
+		//op.addOperacao(oper);
+		op.addOperacao(oper1);
 
         do {
 			System.out.println("\nMENU INICIAL\n");
 			System.out.println("0 - sair \n1 - Criar conta Corrente  \n2 - Criar conta Poupanca \n3 - Fazer um deposito");
 			System.out.println("4 - Fazer um saque \n5 - Aplicar correcao de juros");
 			System.out.println("6 - Cadastrar Pix \n7 - Efetuar Pix");
-			System.out.println("8 - Consultar extrato \n");
+			System.out.println("8 - Consultar extrato \n 9 - Listar Contas \n");
 
 			opcao = scanner.nextInt();
 
@@ -46,17 +63,11 @@ public class Principal {
 				case 4:
 					saque();
 					break;
-				case 5:
-					
-					break;
-				case 6:
-					
-					break;
-				case 7:
-					
-					break;
 				case 8:
 					extrato();
+					break;
+				case 9:
+					ListarContas();
 					break;
 			}
 		} while (opcao != 0);
@@ -117,7 +128,7 @@ public class Principal {
 			if(conta.getNumConta() == numConta){
 				conta.deposito(valor);
 				op.deposito(valor);
-				System.out.println("\n Saldo atualizado:" + conta.getsaldo() + "\n");
+				System.out.println("\n Saldo atualizado: " + conta.getsaldo() + "\n");
 			}
 		}
 	}
@@ -142,6 +153,11 @@ public class Principal {
 		}
 		for (Conta conta : alContas){
 			if(conta.getNumConta() == numConta){
+				
+				while(conta.getsaldo() < 0){
+					System.out.println("Você não tem saldo suficiente! Digite um novo valor:");
+					valor = scanner.nextFloat();
+				}
 				conta.saque(valor);
 				op.saque(valor);
 				System.out.println("\n Saldo atualizado:" + conta.getsaldo() + "\n");
@@ -149,7 +165,7 @@ public class Principal {
 		}
 	}
 	private static void ListarContas(){
-		System.out.println("\n==> Contas\n");
+
 		ArrayList<Conta> alContas;
 		alContas = banco.getContas();
 		if(alContas.size() == 0){
@@ -157,17 +173,17 @@ public class Principal {
 		}
 		for(Conta conta : alContas){
 			if(conta instanceof Corrente){
-				System.out.println("\n - Conta Corrente - \n");
+				System.out.println("\n - Conta Corrente -\n");
 			}
 			else if(conta instanceof Poupanca){
-				System.out.println(" \n - Conta Poupanca - \n");
+				System.out.println(" \n - Conta Poupanca -\n");
 			}
 			System.out.println(" Titular " + conta.getNome() + "\n");
-			System.out.println(" Numero da conta:  " + conta.getNumConta() + "\n");
+			System.out.println(" Numero da conta:  " + conta.getNumConta());
 			if (conta.getCPF() != null){
-				System.out.println("CPF: " + conta.getCPF() + "\n");
+				System.out.println("CPF: " + conta.getCPF());
 			}
-			System.out.println(" Saldo " + conta.getsaldo() + "\n");
+			System.out.println(" Saldo " + conta.getsaldo());
 		}
 	}
 
@@ -186,20 +202,19 @@ public class Principal {
 					System.out.println("\n Nenhum movimento realizado nesta conta \n");
 				}
 				if(operacao.getTipo() == TipoOperacao.SAQUE){
-					System.out.println("Saque       ");
+					System.out.println("     Saque       ");
 				}
 				if(operacao.getTipo() == TipoOperacao.DEPOSITO){
-					System.out.println("Deposito       ");
+					System.out.println("     Deposito       ");
 				}
-			System.out.println(operacao.getValor() + "        ");
-			System.out.println(operacao.getValor() + "        ");
+			System.out.println(" Valor: " + operacao.getValor());
 			}
 		}
 		ArrayList<Conta> alContas;
 		alContas = banco.getContas();
 		for(Conta conta : alContas){
 			if(conta.getNumConta() == numConta){
-				System.out.println(" Saldo " + conta.getsaldo() + "\n");
+				System.out.println(" Saldo: " + conta.getsaldo() + "\n");
 			}
 
 		}

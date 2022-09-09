@@ -30,6 +30,9 @@ public class Operacao {
 	public ArrayList<Operacao> getListaOperacoes() {
 		return alOperacoes;
 	}
+    public void addOperacao(Operacao operacao){
+        alOperacoes.add(operacao);
+    }
     public int getNumConta(){
         return numConta;
     }
@@ -59,13 +62,13 @@ public class Operacao {
         LocalDate data = LocalDate.now();
         TipoOperacao tipo = TipoOperacao.SAQUE;
         Operacao operacao = new Operacao(data, valor, numConta, tipo);
-		alOperacoes.add(operacao);
+		addOperacao(operacao);
         
     }
     public void deposito(float valor){
         LocalDate data = LocalDate.now();
         TipoOperacao tipo = TipoOperacao.DEPOSITO;
         Operacao operacao = new Operacao(data, valor, numConta, tipo);
-        alOperacoes.add(operacao);
+        addOperacao(operacao);
     }
 }
