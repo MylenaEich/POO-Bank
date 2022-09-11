@@ -30,14 +30,18 @@ public class ListaOperacao {
         Operacao operacao = new Operacao(data, valor, numConta, tipo);
         addOperacao(operacao);
     }
-    public void Pix(String CPF1, String CPF2, float valor){
+    public void fazPix(String CPF, float valor, int numConta){
         LocalDate data = LocalDate.now();
-        TipoOperacao tipo1 = TipoOperacao.PIXOUT;
-        Operacao operacao1 = new Operacao(data, valor, CPF1, tipo1);
-        addOperacao(operacao1);
-        TipoOperacao tipo2 = TipoOperacao.PIXIN;
-        Operacao operacao2 = new Operacao(data, valor, CPF2, tipo2);
-        addOperacao(operacao2);
+        TipoOperacao tipo = TipoOperacao.PIXOUT;
+        Operacao operacao = new Operacao(data, valor, numConta, CPF, tipo);
+        addOperacao(operacao);
+        
+    }
+    public void recebePix(String CPF, float valor, int numConta){
+        LocalDate data = LocalDate.now();
+        TipoOperacao tipo = TipoOperacao.PIXIN;
+        Operacao operacao = new Operacao(data, valor, numConta, CPF, tipo);
+        addOperacao(operacao);
     }
 
 }

@@ -30,6 +30,14 @@ public class Operacao {
         this.CPF = CPF;
         this.tipo = tipo;
     }
+    public Operacao(LocalDate data, float valor,int numConta, String CPF, TipoOperacao tipo){
+        super();
+        this.data = data;
+        this.valor = valor;
+        this.numConta = numConta;
+        this.CPF = CPF;
+        this.tipo = tipo;
+    }
    
     public int getNumConta(){
         return numConta;

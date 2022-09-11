@@ -21,14 +21,12 @@ public class Principal {
 		Poupanca cp1 = new Poupanca(4, 100, "Josefina");
 
 		//Operacao oper = new Operacao(LocalDate.now(), 20, 1, TipoOperacao.DEPOSITO);
-		Operacao oper1 = new Operacao(LocalDate.now(), 15, 2, TipoOperacao.SAQUE);
 
 		banco.addConta(cc);
 		banco.addConta(cc1);
 		banco.addConta(cp1);
 
 		//op.addOperacao(oper);
-		operacoes.addOperacao(oper1);
 
         do {
 			System.out.println("\nMENU INICIAL\n");
@@ -235,6 +233,12 @@ public class Principal {
 				if(operacao.getTipo() == TipoOperacao.DEPOSITO){
 					System.out.println("\n Deposito       ");
 				}
+				if(operacao.getTipo() == TipoOperacao.PIXIN){
+					System.out.println(	" Pix Recebido");
+				}
+				if(operacao.getTipo() == TipoOperacao.PIXOUT){
+					System.out.println(" Pix Efetuado");
+				}
 			System.out.println(" Valor: " + operacao.getValor());
 			ArrayList<Conta> alContas;
 			alContas = banco.getContas();
@@ -280,6 +284,8 @@ public class Principal {
 			if(conta1 instanceof Corrente){
 				if(conta1.getCPF() == "123"){
 					conta1.fazPix(valor);
+					int numConta1 = conta1.getNumConta();
+					operacoes.fazPix(CPF1, valor, numConta1);
 				}
 			}
 		}
@@ -287,11 +293,12 @@ public class Principal {
 			if (conta2 instanceof Corrente){
 				if(conta2.getCPF() == "321"){
 					conta2.recebePix(valor);
+					int numConta2 = conta2.getNumConta();
+					operacoes.recebePix(CPF2, valor, numConta2);
 				}
 			}
 		}
 		System.out.println("\n Pix realizado!");
-		operacoes.Pix(CPF1, CPF2, valor);
 	}
 
 	private static void contasPix(){
@@ -303,7 +310,8 @@ public class Principal {
 				if(conta.getCPF() != null){
 					System.out.println("\n Titular: " + conta.getNome());
 					System.out.println(" Número da conta: " + conta.getNumConta());
-					System.out.println(" Pix: "+ conta.getCPF() + "\n");
+					System.out.println(" Pix: "+ conta.getCPF());
+					System.out.println(" Saldo: " + conta.getsaldo() + "\n");
 				}
 			}
 		}
@@ -316,7 +324,7 @@ public class Principal {
 			if(conta instanceof Poupanca){
 					System.out.println("\n Titular: " + conta.getNome());
 					System.out.println(" Número da conta: " + conta.getNumConta());
-					System.out.println(" Pix: "+ conta.getCPF() + "\n");
+					System.out.println(" Saldo: " + conta.getsaldo() + "\n");
 			}
 		}
 	}
