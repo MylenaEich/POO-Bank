@@ -68,4 +68,13 @@ public abstract class Conta {
     public void saque(float valor){
         this.saldo = this.saldo - valor;
     }
+    public boolean testaSaldo(float valor){
+        float saldo;
+        saldo = this.saldo;
+        saldo = saldo - valor;
+        if(saldo < 0){
+            return true;
+        }
+        else return false;
+    }
 }

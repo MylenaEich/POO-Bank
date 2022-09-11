@@ -92,7 +92,7 @@ public class Principal {
 
         Corrente corrente = new Corrente(numConta,  nome);
         banco.addConta(corrente);
-		System.out.print(" Conta criada!\n Dados: \n Nome: " + nome + "\n numero da conta:" );
+		System.out.print(" Conta criada!\n Dados: \n Nome: " + nome + "\n numero da conta:" + numConta);
 	}
 
 	private static void criarCP() {
@@ -103,12 +103,16 @@ public class Principal {
 		String nome;
         int numConta;
 
-		System.out.print("   Nome do titular da conta: ");
+		System.out.print("Nome do titular da conta: ");
 		nome = scanner.nextLine();
-        numConta = scanner.nextInt();
+
+		ArrayList<Conta> alContas;
+		alContas = banco.getContas();
+		numConta = alContas.size() + 1;
+
         Poupanca poupanca = new Poupanca(numConta,  nome);
         banco.addConta(poupanca);
-		System.out.print(" Conta Poupanca criada!\n Dados: \n Nome: " + nome + "\n Numero da conta:\n" );
+		System.out.print(" Conta Poupanca criada!\n Nome: " + nome + "\n Numero da conta:" + numConta);
 	}
 
 	private static void deposito(){
@@ -150,7 +154,7 @@ public class Principal {
 		numConta = scanner.nextInt();
 		System.out.println("Selecione o valor que deseja sacar: \n");
 		valor = scanner.nextFloat();
-
+		
 		ArrayList<Conta> alContas;
 		alContas = banco.getContas();
 		if(alContas.size() == 0){
@@ -158,12 +162,12 @@ public class Principal {
 		}
 		for (Conta conta : alContas){
 			if(conta.getNumConta() == numConta){
-				
-				while(conta.getsaldo() < 0){
+				while(conta.testaSaldo(valor)){
 					System.out.println("Você não tem saldo suficiente! Digite um novo valor:");
 					valor = scanner.nextFloat();
 				}
 				conta.saque(valor);
+				System.out.println(conta.testaSaldo(valor));
 				operacoes.saque(numConta, valor);
 				System.out.println("\n Saldo atualizado:" + conta.getsaldo() + "\n");
 			}
@@ -203,27 +207,27 @@ public class Principal {
 		
 		for(Operacao operacao : alOperacoes){
 			if(operacao.getNumConta() == numConta){
-				// if(alOperacoes.size() == 0){
-				// 	System.out.println("\n Nenhum movimento realizado nesta conta \n");
-				// }
-				// if(operacao.getTipo() == TipoOperacao.SAQUE){
-				// 	System.out.println("     Saque       ");
-				// }
-				// if(operacao.getTipo() == TipoOperacao.DEPOSITO){
-				// 	System.out.println("     Deposito       ");
-				// }
+				if(alOperacoes.size() == 0){
+					System.out.println("\n Nenhum movimento realizado nesta conta \n");
+				}
+				if(operacao.getTipo() == TipoOperacao.SAQUE){
+					System.out.println(" Saque       ");
+				}
+				if(operacao.getTipo() == TipoOperacao.DEPOSITO){
+					System.out.println(" Deposito       ");
+				}
 			System.out.println(" Valor: " + operacao.getValor());
-			System.out.println(" Valor: " + operacao.getValor());
+			ArrayList<Conta> alContas;
+			alContas = banco.getContas();
+			for(Conta conta : alContas){
+
+				if(conta.getNumConta() == numConta){
+					System.out.println(" Saldo: " + conta.getsaldo() + "\n");
+				}
+
+			}
 			}
 		}
-		ArrayList<Conta> alContas;
-		alContas = banco.getContas();
-		for(Conta conta : alContas){
-
-			if(conta.getNumConta() == numConta){
-				System.out.println(" Saldo: " + conta.getsaldo() + "\n");
-			}
-
-		}
+		
 	}
 }
