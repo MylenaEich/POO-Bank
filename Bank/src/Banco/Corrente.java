@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Corrente extends Conta implements Pix{
 
     private ArrayList<Conta> alContas;
+    private static Banco banco = new Banco();
 
     public Corrente(int numConta, float saldo, String nome, String CPF){
         super(numConta, saldo, nome, CPF);
@@ -26,14 +27,9 @@ public class Corrente extends Conta implements Pix{
         setNumConta(numConta);
     }
 
-    public void addCCPix(String nome, String CPF){
-        int numConta = alContas.size() + 1;
+    public void addCCPix(int numConta, String nome, String CPF){
         Corrente corrente = new Corrente(numConta, nome, CPF);
 		addConta(corrente);
     }
-    public void addCC( String nome){
-        int numConta = alContas.size() + 1;
-        Corrente corrente = new Corrente(numConta,  nome);
-        addConta(corrente);
-    }
+
 }

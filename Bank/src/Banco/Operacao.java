@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Operacao {
     
-    private ArrayList<Operacao> alOperacoes;
+    
     private LocalDate data;
     private float valor;
     private int numConta;
@@ -22,17 +22,7 @@ public class Operacao {
         this.numConta = numConta;
         this.tipo = tipo;
     }
-
-    public Operacao() {
-		super();
-		this.alOperacoes = new ArrayList<Operacao>();
-	}
-	public ArrayList<Operacao> getListaOperacoes() {
-		return alOperacoes;
-	}
-    public void addOperacao(Operacao operacao){
-        alOperacoes.add(operacao);
-    }
+   
     public int getNumConta(){
         return numConta;
     }
@@ -58,17 +48,5 @@ public class Operacao {
         return tipo;
     }
 
-    public void saque(float valor){
-        LocalDate data = LocalDate.now();
-        TipoOperacao tipo = TipoOperacao.SAQUE;
-        Operacao operacao = new Operacao(data, valor, numConta, tipo);
-		addOperacao(operacao);
-        
-    }
-    public void deposito(float valor){
-        LocalDate data = LocalDate.now();
-        TipoOperacao tipo = TipoOperacao.DEPOSITO;
-        Operacao operacao = new Operacao(data, valor, numConta, tipo);
-        addOperacao(operacao);
-    }
+   
 }
