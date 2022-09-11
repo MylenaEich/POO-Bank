@@ -77,4 +77,16 @@ public abstract class Conta {
         }
         else return false;
     }
+    public void fazPix(float valor){
+        this.saldo = this.saldo - valor;
+
+    }
+    public void recebePix(float valor){
+        this.saldo = saldo + valor;
+    }
+    public void juros(){
+        float taxa = (float) 1.1;
+        this.saldo = this.saldo * taxa;
+    }
+
 }

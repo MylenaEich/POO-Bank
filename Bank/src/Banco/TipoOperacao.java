@@ -1,5 +1,5 @@
 package Banco;
 
 public enum TipoOperacao {
-    SAQUE, DEPOSITO;
+    SAQUE, DEPOSITO, PIXIN, PIXOUT;
 }

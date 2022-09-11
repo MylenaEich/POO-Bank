@@ -3,6 +3,8 @@ package Banco;
 import Interfaces.Pix;
 import java.util.ArrayList;
 
+import Interfaces.Pix;
+
 public class Corrente extends Conta implements Pix{
 
     private ArrayList<Conta> alContas;
@@ -31,5 +33,7 @@ public class Corrente extends Conta implements Pix{
         Corrente corrente = new Corrente(numConta, nome, CPF);
 		addConta(corrente);
     }
-
+    public void setPix(String CPF){
+        setCPF(CPF);
+    }
 }

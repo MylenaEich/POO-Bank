@@ -9,6 +9,7 @@ public class Operacao {
     private LocalDate data;
     private float valor;
     private int numConta;
+    private String CPF;
     protected int opt;
     private TipoOperacao tipo;
 	
@@ -20,6 +21,13 @@ public class Operacao {
         this.data = data;
         this.valor = valor;
         this.numConta = numConta;
+        this.tipo = tipo;
+    }
+    public Operacao(LocalDate data, float valor, String CPF, TipoOperacao tipo){
+        super();
+        this.data = data;
+        this.valor = valor;
+        this.CPF = CPF;
         this.tipo = tipo;
     }
    
@@ -40,6 +48,12 @@ public class Operacao {
     }
     public float getValor(){
         return valor;
+    }
+    public void setCPF(String CPF){
+        this.CPF = CPF;
+    }
+    public String getCPF(){
+        return CPF;
     }
     public void setTipo(TipoOperacao tipo){
         this.tipo = tipo;
