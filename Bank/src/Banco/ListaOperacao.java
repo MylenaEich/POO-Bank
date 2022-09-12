@@ -43,5 +43,12 @@ public class ListaOperacao {
         Operacao operacao = new Operacao(data, valor, numConta, CPF, tipo);
         addOperacao(operacao);
     }
+    public void correcao(int numConta){
+        LocalDate data = LocalDate.now();
+        TipoOperacao tipo = TipoOperacao.CORRECAO;
+        float valor = (float) 1.1; 
+        Operacao operacao = new Operacao(data, valor, numConta, tipo);
+        addOperacao(operacao);
+    }
 
 }

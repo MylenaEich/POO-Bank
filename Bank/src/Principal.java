@@ -1,8 +1,5 @@
 import Banco.*;
-import Interfaces.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -17,19 +14,15 @@ public class Principal {
         int opcao;
 
 		Corrente cc = new Corrente(1, 40, "Mylena","123");
-		Corrente cc1 = new Corrente(2, "Joana", "321");
-		Poupanca cp1 = new Poupanca(4, 100, "Josefina");
-
-		//Operacao oper = new Operacao(LocalDate.now(), 20, 1, TipoOperacao.DEPOSITO);
+		Corrente cc1 = new Corrente(2, "pan", "321");
+		Poupanca cp1 = new Poupanca(3, 100, "Josefina");
 
 		banco.addConta(cc);
 		banco.addConta(cc1);
 		banco.addConta(cp1);
 
-		//op.addOperacao(oper);
-
         do {
-			System.out.println("\nMENU INICIAL\n");
+			System.out.println("\n\nMENU INICIAL\n");
 			System.out.println("0 - sair \n1 - Criar conta Corrente  \n2 - Criar conta Poupanca \n3 - Fazer um deposito");
 			System.out.println("4 - Fazer um saque \n5 - Aplicar correcao de juros");
 			System.out.println("6 - Cadastrar Pix \n7 - Efetuar Pix");
@@ -176,20 +169,18 @@ public class Principal {
 	}
 	private static void correcao(){
 		System.out.println("\n ==> Aplicar Correcao de juros");
-		contasPoupanca();
-		System.out.println(" Escolha uma conta: \n");
-		int numConta = scanner.nextInt();
 		ArrayList<Conta> alContas;
 		alContas = banco.getContas();
 		for (Conta conta : alContas){
 			if(conta instanceof Poupanca){
-				if(conta.getNumConta() == numConta){
-					conta.juros();
-					System.out.println("\n Correcao realizada! Saldo: " + conta.getsaldo());
-				}
+				conta.juros();
+				int numConta = conta.getNumConta();
+				operacoes.correcao(numConta);
+				System.out.println("\n Correcao realizada! ");
 			}
 		}
 	}
+	
 	private static void ListarContas(){
 
 		ArrayList<Conta> alContas;
@@ -227,6 +218,7 @@ public class Principal {
 				if(alOperacoes.size() == 0){
 					System.out.println("\n Nenhum movimento realizado nesta conta \n");
 				}
+				System.out.println("Data: " + operacao.getdata());
 				if(operacao.getTipo() == TipoOperacao.SAQUE){
 					System.out.println("\n Saque       ");
 				}
@@ -239,7 +231,13 @@ public class Principal {
 				if(operacao.getTipo() == TipoOperacao.PIXOUT){
 					System.out.println(" Pix Efetuado");
 				}
+				if(operacao.getTipo() == TipoOperacao.CORRECAO){
+					System.out.println(" Correcao monetaria");
+				}
 			System.out.println(" Valor: " + operacao.getValor());
+			
+			}
+		
 			ArrayList<Conta> alContas;
 			alContas = banco.getContas();
 			for(Conta conta : alContas){
@@ -247,9 +245,10 @@ public class Principal {
 					System.out.println(" Saldo: " + conta.getsaldo() + "\n");
 				}
 			}
-			}
 		}
 	}
+		
+	
 	private static void addPix(){
 
 		System.out.println("\n==> Criar Pix \n");
@@ -282,7 +281,7 @@ public class Principal {
 		alContas = banco.getContas();
 		for(Conta conta1 : alContas){
 			if(conta1 instanceof Corrente){
-				if(conta1.getCPF() == "123"){
+				if(conta1.getCPF() == CPF1){
 					conta1.fazPix(valor);
 					int numConta1 = conta1.getNumConta();
 					operacoes.fazPix(CPF1, valor, numConta1);
@@ -291,7 +290,7 @@ public class Principal {
 		}
 		for(Conta conta2 : alContas){
 			if (conta2 instanceof Corrente){
-				if(conta2.getCPF() == "321"){
+				if(conta2.getCPF() == CPF2){
 					conta2.recebePix(valor);
 					int numConta2 = conta2.getNumConta();
 					operacoes.recebePix(CPF2, valor, numConta2);
@@ -307,12 +306,12 @@ public class Principal {
 		alContas = banco.getContas();
 		for(Conta conta : alContas){
 			if(conta instanceof Corrente){
-				if(conta.getCPF() != null){
 					System.out.println("\n Titular: " + conta.getNome());
 					System.out.println(" Número da conta: " + conta.getNumConta());
-					System.out.println(" Pix: "+ conta.getCPF());
+					if(conta.getCPF() != null){
+						System.out.println(" Pix: "+ conta.getCPF());
+					}
 					System.out.println(" Saldo: " + conta.getsaldo() + "\n");
-				}
 			}
 		}
 	}
